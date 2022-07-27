@@ -1,5 +1,6 @@
 from FinanceDataReader.investing.data import (InvestingDailyReader)
 from FinanceDataReader.fred.data import (FredReader)
+from FinanceDataReader.ecos.data import (EcosReader)
 from FinanceDataReader.krx.data import (KrxDelistingReader)
 from FinanceDataReader.naver.data import (NaverDailyReader)
 from FinanceDataReader.nasdaq.listing import (NasdaqStockListing)
@@ -26,6 +27,10 @@ def DataReader(symbol, start=None, end=None, exchange=None, data_source=None):
     # FRED Reader
     if data_source and data_source.upper() == 'FRED':
         return FredReader(symbol, start, end, exchange, data_source).read()
+
+    # ECOS Reader
+    if data_source and data_source.upper() == 'ECOS':
+        return EcosReader(symbol, start, end).read()
 
     # KRX and Naver Finance
     if (symbol[:5].isdigit() and exchange==None) or \
